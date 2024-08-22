@@ -32,10 +32,17 @@ def signup(request):
                 user.save()
                 return HttpResponse('Usuario creado exitosamente')
             except:
-                return HttpResponse('Usuario ya existe')
+                #return HttpResponse('Usuario ya existe')
+                return render (request, 'signup.html',{
+                    'form': UserCreationForm,
+                    'error': 'Usuario ya existe'
+                })
            
 
-        return HttpResponse('Password no coincide')    
+        return render (request, 'signup.html',{
+                    'form': UserCreationForm,
+                    'error': 'contraseñas no coinciden'
+                }) 
 
         
         

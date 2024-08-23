@@ -54,16 +54,17 @@ def tasks(request):
     return render (request, 'tasks.html')        
 
 def create_task(request):
-# Suggested code may be subject to a license. Learn more: ~LicenseLog:153928661.
     if request.method == 'GET':
         return render (request, 'create_task.html',{
             'form': TaskForm
         })
     else:
-        print(request.POST)
-        return render (request, 'create_task.html',{
-            'form': TaskForm
-        })
+        form = TaskForm(request.POST)
+        new_task = form.save(commit=False)
+        new_task.user = request.user
+        new_task.save()
+        return redirect('tasks')  
+
 
 def signout(request):
     logout(request)

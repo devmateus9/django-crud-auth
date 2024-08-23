@@ -59,12 +59,18 @@ def create_task(request):
             'form': TaskForm
         })
     else:
-        form = TaskForm(request.POST)
-        new_task = form.save(commit=False)
-        new_task.user = request.user
-        new_task.save()
-        return redirect('tasks')  
-
+# Suggested code may be subject to a license. Learn more: ~LicenseLog:286355240.
+        try:
+            form = TaskForm(request.POST)
+            new_task = form.save(commit=False)
+            new_task.user = request.user
+            new_task.save()
+            return redirect('tasks')
+        except ValueError:
+            return render (request, 'create_task.html',{
+                'form': TaskForm,
+                'error': 'Por favor ingrese datos validos'
+            })
 
 def signout(request):
     logout(request)

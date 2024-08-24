@@ -1,3 +1,4 @@
+# Suggested code may be subject to a license. Learn more: ~LicenseLog:3511529496.
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -111,6 +112,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+LOGIN_URL = '/signin/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

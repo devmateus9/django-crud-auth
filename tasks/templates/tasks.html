@@ -13,6 +13,8 @@
         <p>{{task.description}}</p>
         <p>{{task.user.username}}</p>
         <p>{{task.important}}</p>
+        <p>{{task.created}}</p>
+        <p>{{task.datecompleted|date:"d-m-Y"}}</p>
     </a>
     {% endfor %}
 </ul>

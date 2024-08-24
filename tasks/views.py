@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
@@ -66,7 +66,7 @@ def create_task(request):
             'form': TaskForm
         })
     else:
-# Suggested code may be subject to a license. Learn more: ~LicenseLog:286355240.
+
         try:
             form = TaskForm(request.POST)
             new_task = form.save(commit=False)
@@ -78,6 +78,14 @@ def create_task(request):
                 'form': TaskForm,
                 'error': 'Por favor ingrese datos validos'
             })
+
+def task_detail(request, task_id):
+    #task = Task.objects.get(pk = task_id)
+    task = get_object_or_404(Task, pk = task_id, user = request.user)
+    return render (request, 'task_detail.html',{
+        'task': task
+    })
+
 
 def signout(request):
     logout(request)

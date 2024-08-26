@@ -1,13 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content%}
-<h1>Crear Tarea</h1>
-{{error}}
-<form action="/tasks/create/" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>
-        Guardar
-    </button>
-</form>
+
+<main class="container">
+    <div class ="row">
+        <div class ="col-md-4 offset-md-4 mt-5">
+            <form action="/tasks/create/" method="POST" class = "card card-body">
+                <h1 class = "text-center" style="color: rgb(8, 245, 60);">Crear Tarea</h1>
+                    <!-- Mostrar errores -->
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                {% csrf_token %}
+                <form>
+                    <div class="mb-3">
+                      <label for="title" class="form-label">Título</label>
+                      <input type="text area" class="form-control" id="title" name = "title"
+                      placeholder="Ingresa el título de la tarea" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Ingresa la Descripción de la tarea" required></textarea>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="important" name="important">
+                        <label class="form-check-label" for="important">
+                            Importante
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        Guardar
+                    <div class="|1"></div></button>
+                  </form>
+            </form>
+        </div>
+    </div>
+</main>
+
 {% endblock %}
+
+

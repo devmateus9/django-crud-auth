@@ -18,13 +18,13 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="/" style="color: white;">Home</a></li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/logout/" style="color: white;">Logout</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'tasks' %} style="color: white;">Tasks Pending</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'tasks_completed' %} style="color: white;">Tasks Completed</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/tasks/create/" style="color: white;">Create Task</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/logout/" style="color: rgb(238, 6, 6);">Cerrar Sesión</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'tasks' %} style="color: white;">Tareas Pendientes</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href={% url 'tasks_completed' %} style="color: white;">Tareas Completadas</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/tasks/create/" style="color: rgb(8, 245, 60);">Crear Tarea</a></li>
                     {% else %}
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/signup/" style="color: white;">Signup</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/signin/" style="color: white;">Signin</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/signup/" style="color: white;">Registrar</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/signin/" style="color: white;">Ingresar</a></li>
                     {% endif %}
                 </ul>
             </div>

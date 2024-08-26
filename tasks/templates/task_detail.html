@@ -1,42 +1,54 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
-<h1 class = "text-center">{{ task.title }}</h1>
-<div class = "text-center" class="container mt-4">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2>{{ task.title }}</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="{{ form.title.id_for_label }}" class="form-label">Título</label>
+                            {% render_field form.title class="form-control" %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.description.id_for_label }}" class="form-label">Descripción</label>
+                            {% render_field form.description class="form-control" rows="4" %}
+                        </div>
+                        <div class="mb-3 form-check">
+                            {% render_field form.important class="form-check-input" %}
+                            <label for="{{ form.important.id_for_label }}" class="form-check-label">Importante</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Actualizar Tarea</button>
+                    </form>
 
-    <!-- Mostrar errores -->
-    {% if error %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endif %}
+                    {% if error %}
+                        <div class="alert alert-danger mt-3">{{ error }}</div>
+                    {% endif %}
 
-    <!-- Formulario para actualizar la tarea -->
-    <form method="POST" class="mb-3">
-        {% csrf_token %}
-        <div class="mb-3">
-            {{ form.as_p }}
+                    <div class="mt-4">
+                        <p><strong>Creada:</strong> {{ task.created|date:"d/m/Y H:i" }}</p>
+                        {% if task.datecompleted %}
+                            <p><strong>Completada:</strong> {{ task.datecompleted|date:"d/m/Y H:i" }}</p>
+                        {% else %}
+                            <form action="{% url 'complete_task' task.id %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success">Marcar como Completada</button>
+                            </form>
+                        {% endif %}
+                        <form action="{% url 'delete_task' task.id %}" method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Eliminar Tarea</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">
-            Actualizar
-        </button>
-    </form>
-
-    <!-- Formulario para completar la tarea -->
-    <form action="{% url 'complete_task' task.id %}" method="POST" class="mb-3">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-success">
-            Completado
-        </button>
-    </form>
-
-    <!-- Formulario para eliminar la tarea -->
-    <form action="{% url 'delete_task' task.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">
-            Eliminar
-        </button>
-    </form>
-
+    </div>
 </div>
 {% endblock %}

@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load widget_tweaks %}
 
 {% block content %}
 <div class="container mt-5">
@@ -13,16 +12,16 @@
                     <form method="POST">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label for="{{ form.title.id_for_label }}" class="form-label">Título</label>
-                            {% render_field form.title class="form-control" %}
+                            <label for="title" class="form-label">Título</label>
+                            <input type="text" id="title" name="title" value="{{ form.title.value }}" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <label for="{{ form.description.id_for_label }}" class="form-label">Descripción</label>
-                            {% render_field form.description class="form-control" rows="4" %}
+                            <label for="description" class="form-label">Descripción</label>
+                            <textarea id="description" name="description" rows="4" class="form-control">{{ form.description.value }}</textarea>
                         </div>
                         <div class="mb-3 form-check">
-                            {% render_field form.important class="form-check-input" %}
-                            <label for="{{ form.important.id_for_label }}" class="form-check-label">Importante</label>
+                            <input type="checkbox" id="important" name="important" {% if form.important.value %}checked{% endif %} class="form-check-input">
+                            <label for="important" class="form-check-label">Importante</label>
                         </div>
                         <button type="submit" class="btn btn-primary">Actualizar Tarea</button>
                     </form>

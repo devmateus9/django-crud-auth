@@ -57,7 +57,6 @@ def signup(request):
 def tasks(request):
     #tasks = Task.objects.all()
     #tasks = Task.objects.filter(user = request.user)
-    #tasks = Task.objects.filter(user = request.user, datecompleted__isnull = True)
     tasks = Task.objects.filter(user = request.user, datecompleted__isnull = True)
     return render (request, 'tasks.html',{
         'tasks': tasks
@@ -82,6 +81,8 @@ def create_task(request):
             form = TaskForm(request.POST)
             new_task = form.save(commit=False)
             new_task.user = request.user
+            # Asegurarte de que el campo 'important' se maneje correctamente
+            new_task.important = 'important' in request.POST
             new_task.save()
             return redirect('tasks')
         except ValueError:

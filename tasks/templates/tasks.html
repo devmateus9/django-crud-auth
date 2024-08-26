@@ -1,22 +1,39 @@
 {% extends 'base.html' %}
-
-{% block content%}
+{% block content %}
 <h1>Tasks</h1>
-<ul>
-    {% for task in tasks %}
-    <a href="{% url 'task_detail' task.id %}">
-        {% if task.important %}
-        <strong>{{task.title}}</strong>
-        {% else %}
-        <p>{{task.title}}</p>
-        {% endif %}
-        <p>{{task.description}}</p>
-        <p>{{task.user.username}}</p>
-        <p>{{task.important}}</p>
-        <p>{{task.created}}</p>
-        <p>{{task.datecompleted|date:"d-m-Y"}}</p>
-    </a>
-    {% endfor %}
-</ul>
-   
+
+<!-- Tabla para mostrar las tareas -->
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>User</th>
+            <th>Important</th>
+            <th>Created</th>
+            <th>Completed Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td>
+                <a href="{% url 'task_detail' task.id %}">
+                    {% if task.important %}
+                    <strong>{{task.title}}</strong>
+                    {% else %}
+                    {{task.title}}
+                    {% endif %}
+                </a>
+            </td>
+            <td>{{task.description}}</td>
+            <td>{{task.user.username}}</td>
+            <td>{{task.important}}</td>
+            <td>{{task.created|date:"d-m-Y"}}</td>
+            <td>{{task.datecompleted|date:"d-m-Y"}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}
